@@ -7,12 +7,19 @@ import Account from "./pages/Account";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 
+import auth from "./models/auth";
+
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            token: undefined
+            hasToken: false
         };
+        auth.token.subscribe(hasToken => {
+            this.setState({
+                hasToken: hasToken
+            });
+        })
     }
 
     render() {
@@ -31,7 +38,7 @@ class App extends React.Component {
                         </li>
                         <li>
                             <Link className="navigation-link"
-                                to={ this.state.token ? "/mina-sidor" : "logga-in" }>
+                                to={ this.state.hasToken ? "/mina-sidor" : "logga-in" }>
                                 Mina sidor
                             </Link>
                         </li>
