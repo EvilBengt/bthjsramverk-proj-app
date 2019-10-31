@@ -25,6 +25,7 @@ body {
     background-color: #0fbcf9;
     color: #fff;
     box-shadow: 0 0 10px 8px #0003;
+    z-index: 9999;
 }
 
 .header {
@@ -154,5 +155,5 @@ main {
 }
 
 .chart-container {
-    margin: 0 0.5rem;
+    margin: 0 1rem 0 0.2rem;
 }
