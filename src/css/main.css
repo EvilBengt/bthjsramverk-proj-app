@@ -152,6 +152,7 @@ main {
     background-color: #fa880f;
     width: 100%;
     text-align: right;
+    padding-left: 1rem;
 }
 
 .chart-container {
@@ -160,4 +161,13 @@ main {
 
 .big-li {
     margin: 1rem 0;
+    border-bottom: 0.5rem dashed #0fbcf9;
+}
+
+.big-li:last-of-type {
+    border: none;
+}
+
+ul {
+    list-style: none;
 }

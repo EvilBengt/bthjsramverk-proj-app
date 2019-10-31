@@ -1,22 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import io from "socket.io-client";
 import RTChart from "react-rt-chart";
 import "../css/c3.css";
 
 import api from "../models/api";
 import KeyValue from "../components/KeyValue";
 import auth from "../models/auth";
-
-const devSocketUrl = "http://192.168.2.163:8400";
-const prodSocketUrl = "https://proj-socket.jsramverk.evilbengt.me";
-let socketUrl;
-
-if (window.location.origin.includes("localhost")) {
-    socketUrl = devSocketUrl;
-} else {
-    socketUrl = prodSocketUrl;
-}
+import funds from "../models/funds";
 
 class FundDetails extends React.Component {
     constructor(props) {
@@ -46,16 +36,11 @@ class FundDetails extends React.Component {
             }
         });
 
-        const socket = io(socketUrl);
+        funds.subscribe(funds => {
+            const relevantFund = funds.find(fund => fund.name === this.state.name);
 
-        socket.on("connect", () => {
-            socket.on("fundUpdate", (funds) => {
-
-                const relevantFund = funds.find(fund => fund.name === this.state.name);
-
-                this.stateWith({
-                    value: roundToCents(relevantFund.value)
-                });
+            this.stateWith({
+                value: roundToCents(relevantFund.value)
             });
         });
     }
@@ -106,6 +91,10 @@ class FundDetails extends React.Component {
                 </div>
             </main>
         );
+    }
+
+    componentWillUnmount() {
+        funds.unsubscribe();
     }
 }
 

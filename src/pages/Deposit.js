@@ -26,7 +26,7 @@ class Deposit extends React.Component {
         }
         return (
             <main>
-                <h2 className="content-title">Stoppa in mer pengar</h2>
+                <h2 className="content-title">Stoppa in { this.state.amount < 0 ? "mindre" : "mer" } pengar</h2>
                 <form className="form"
                     onSubmit={ e => {
                         e.preventDefault();
@@ -35,6 +35,7 @@ class Deposit extends React.Component {
                 >
                     <input className="input"
                         type="number"
+                        step="any"
                         placeholder="Antal pengar"
                         required
                         onChange={ e => {
@@ -46,7 +47,7 @@ class Deposit extends React.Component {
                     <div className="tab-container">
                         <button className="tab button submit"
                             type="submit">
-                            Stoppa in mer pengar
+                            Stoppa in { this.state.amount < 0 ? "mindre" : "mer" } pengar
                         </button>
                     </div>
                     <p className="paragraph">

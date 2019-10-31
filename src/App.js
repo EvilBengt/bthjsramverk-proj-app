@@ -19,11 +19,14 @@ class App extends React.Component {
         this.state = {
             hasToken: auth.token.isSet()
         };
+    }
+
+    componentDidMount() {
         auth.token.subscribe(hasToken => {
             this.setState({
                 hasToken: hasToken
             });
-        })
+        });
     }
 
     render() {

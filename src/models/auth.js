@@ -10,7 +10,6 @@ const auth = {
             tokenSubscribers.forEach(sub => {
                 sub(token ? true : false);
             });
-            console.log(token);
         },
         isSet: () => token ? true : false,
         get: () => token,

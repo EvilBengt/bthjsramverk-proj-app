@@ -40,6 +40,7 @@ class Invest extends React.Component {
                 >
                     <input className="input"
                         type="number"
+                        step="any"
                         placeholder="Antal andelar"
                         required
                         onChange={ e => {
