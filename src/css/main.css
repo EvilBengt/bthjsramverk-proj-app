@@ -106,7 +106,7 @@ main {
 }
 
 .button {
-    width: 60%;
+    min-width: 60%;
     border: none;
 }
 
@@ -156,4 +156,8 @@ main {
 
 .chart-container {
     margin: 0 1rem 0 0.2rem;
+}
+
+.big-li {
+    margin: 1rem 0;
 }
