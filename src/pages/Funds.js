@@ -1,33 +1,52 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function Funds() {
+import api from "../models/api";
+
+class Funds extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            funds: []
+        };
+    }
+
+    componentDidMount() {
+        api.get("/funds/all")(res => {
+            if (res.ok) {
+                res.json().then(json => {
+                    this.setState({
+                        funds: json.data.funds
+                    })
+                })
+            }
+        });
+    }
+
+    render() {
+        return (
+            <main>
+                <h2 className="content-title">Alla fonder</h2>
+                <ul className="tab-container">
+                    { this.state.funds.map(fund =>
+                        <Fund
+                            key={ fund.name }
+                            name={ fund.name }
+                            longName={ fund.long_name }/>
+                    ) }
+                </ul>
+            </main>
+        );
+    }
+}
+
+function Fund(props) {
     return (
-        <main>
-            <h2 className="content-title">Alla fonder</h2>
-            <ul className="tab-container">
-                <li>
-                    <Link to="fond/ptf" className="tab">
-                        Princesstårte-fonden
-                    </Link>
-                </li>
-                <li>
-                    <Link to="fond/ats" className="tab">
-                        Alletårtspar
-                    </Link>
-                </li>
-                <li>
-                    <Link to="fond/klp" className="tab">
-                        The Key Lime Pie Foundation
-                    </Link>
-                </li>
-                <li>
-                    <Link to="fond/kti" className="tab">
-                        Kapitårtinvest
-                    </Link>
-                </li>
-            </ul>
-        </main>
+        <li>
+            <Link to={ "fond/" + props.name } className="tab">
+                { props.longName }
+            </Link>
+        </li>
     );
 }
 
