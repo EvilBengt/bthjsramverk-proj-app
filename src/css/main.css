@@ -126,3 +126,29 @@ main {
     width: 100%;
     background-color: #fffa;
 }
+
+.kv {
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    margin: 0 0 1rem;
+}
+
+.kv-key,
+.kv-value {
+    display: inline;
+    padding: 0.5rem 2rem;
+    color: #fff;
+    box-shadow: 0 0 4px #0003;
+}
+
+.kv-key {
+    background-color: #0fbcf9;
+}
+
+.kv-value {
+    background-color: #fa880f;
+    width: 100%;
+    text-align: right;
+}
