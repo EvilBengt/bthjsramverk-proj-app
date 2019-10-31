@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import Home from "./pages/Home";
 import Funds from "./pages/Funds";
+import FundDetails from "./pages/FundDetails";
 import Account from "./pages/Account";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -46,6 +47,7 @@ class App extends React.Component {
                 </nav>
                 <Route exact path="/" component={ Home } />
                 <Route path="/fonder" component={ Funds } />
+                <Route path="/fond/:name" component={ FundDetails } />
                 <Route path="/mina-sidor" component={ Account } />
                 <Route path="/logga-in" component={ Login } />
                 <Route path="/skapa-konto" component={ Register } />
