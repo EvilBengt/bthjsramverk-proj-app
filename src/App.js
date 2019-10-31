@@ -39,7 +39,7 @@ class App extends React.Component {
                         </li>
                         <li>
                             <Link className="navigation-link"
-                                to={ this.state.hasToken ? "/mina-sidor" : "logga-in" }>
+                                to={ this.state.hasToken ? "/mina-sidor" : "/logga-in" }>
                                 Mina sidor
                             </Link>
                         </li>
