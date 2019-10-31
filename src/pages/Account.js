@@ -32,10 +32,10 @@ class Account extends React.Component {
                 <h2 className="content-title">Mina sidor</h2>
                 <KeyValue
                     label="Pengar"
-                    value={ this.state.balance }/>
+                    value={ roundToCents(this.state.balance) }/>
                 <div className="tab-container">
                     <Link className="tab button"
-                        to="/stoppa-in-pengar">
+                        to="/stoppa-in-mer-pengar">
                             Stoppa in mer pengar
                     </Link>
                 </div>
@@ -58,6 +58,10 @@ class Account extends React.Component {
             </main>
         );
     }
+}
+
+function roundToCents(value) {
+    return Math.round(value * 100) / 100;
 }
 
 export default Account;
