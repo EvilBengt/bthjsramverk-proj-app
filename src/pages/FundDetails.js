@@ -46,20 +46,18 @@ class FundDetails extends React.Component {
             }
         });
 
-        console.log("Socket stuff temporarily disabled!!", io ? "" : "", socketUrl ? "" : "");
+        const socket = io(socketUrl);
 
-        // const socket = io(socketUrl);
+        socket.on("connect", () => {
+            socket.on("fundUpdate", (funds) => {
 
-        // socket.on("connect", () => {
-        //     socket.on("fundUpdate", (funds) => {
+                const relevantFund = funds.find(fund => fund.name === this.state.name);
 
-        //         const relevantFund = funds.find(fund => fund.name === this.state.name);
-
-        //         this.stateWith({
-        //             value: roundToCents(relevantFund.value)
-        //         });
-        //     });
-        // });
+                this.stateWith({
+                    value: roundToCents(relevantFund.value)
+                });
+            });
+        });
     }
 
     render() {
@@ -70,6 +68,13 @@ class FundDetails extends React.Component {
         const chart = {
             size: {
                 height: 200
+            },
+            axis: {
+                y: {
+                    tick: {
+                        format: roundToCents
+                    }
+                }
             }
         };
 
