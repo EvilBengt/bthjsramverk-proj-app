@@ -15,7 +15,7 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            hasToken: false
+            hasToken: auth.token.isSet()
         };
         auth.token.subscribe(hasToken => {
             this.setState({
@@ -41,7 +41,7 @@ class App extends React.Component {
                         <li>
                             <Link className="navigation-link"
                                 to={ this.state.hasToken ? "/mina-sidor" : "/logga-in" }>
-                                Mina sidor
+                                { this.state.hasToken ? "Mina sidor" : "Logga in" }
                             </Link>
                         </li>
                     </ul>
