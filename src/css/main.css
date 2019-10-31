@@ -104,13 +104,13 @@ main {
     margin: 0 0 1rem;
 }
 
-.button-container {
-    text-align: right;
-}
-
 .button {
     width: 60%;
     border: none;
+}
+
+.button.tab {
+    border-left: 1rem solid #0fbcf9;
 }
 
 .submit {
@@ -151,4 +151,8 @@ main {
     background-color: #fa880f;
     width: 100%;
     text-align: right;
+}
+
+.chart-container {
+    margin: 0 0.5rem;
 }

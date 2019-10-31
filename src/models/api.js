@@ -1,8 +1,8 @@
-const devBaseUrl = "http://localhost:1337";
+const devBaseUrl = "http://192.168.2.163:1337";
 const prodBaseUrl = "https://proj-api.jsramverk.evilbengt.me";
 let baseUrl;
 
-if (window.location.origin.includes("localhost")) {
+if (window.location.origin.includes("localhost") || window.location.origin.includes("192.168")) {
     baseUrl = devBaseUrl;
 } else {
     baseUrl = prodBaseUrl;
