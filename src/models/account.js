@@ -10,11 +10,28 @@ const account = {
             "Content-Type": "application/x-www-form-urlencoded",
             "x-access-token": auth.token.get()
         })(res => {
-            if (res.ok) {
-                callback(true);
-            }
-        }, () => {
-            callback(false);
+            callback(res.ok);
+        });
+    },
+    sell: (fundName, amount, callback) => {
+        api.post("/account/sell", {
+            fundName: fundName,
+            amount: amount
+        }, {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "x-access-token": auth.token.get()
+        })(res => {
+            callback(res.ok);
+        });
+    },
+    deposit: (amount, callback) => {
+        api.post("/account/deposit", {
+            amount: amount
+        }, {
+            "Content-Type": "application/x-www-form-urlencoded",
+            "x-access-token": auth.token.get()
+        })(res => {
+            callback(res.ok);
         });
     }
 };

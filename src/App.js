@@ -8,6 +8,8 @@ import Account from "./pages/Account";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Invest from "./pages/Invest";
+import Sell from "./pages/Sell";
+import Deposit from "./pages/Deposit";
 
 import auth from "./models/auth";
 
@@ -53,6 +55,8 @@ class App extends React.Component {
                 <Route path="/logga-in" component={ Login } />
                 <Route path="/skapa-konto" component={ Register } />
                 <Route path="/investera/:name" component={ Invest } />
+                <Route path="/salj/:name" component={ Sell } />
+                <Route path="/stoppa-in-mer-pengar" component={ Deposit } />
             </Router>
         );
     }
