@@ -23,21 +23,21 @@ class Invest extends React.Component {
         if (!auth.token.isSet()) {
             return <Redirect to="/logga-in"/>;
         }
-        if (this.state.outcome === true) {
+        if (this.state.done) {
             return <Redirect to={ "/fond/" + this.state.name }/>;
         }
         return (
             <main>
                 <h2 className="content-title">Investera</h2>
+                <KeyValue
+                        label="Tårtur-ID"
+                        value={ this.state.name }/>
                 <form className="form"
                     onSubmit={ e => {
                         e.preventDefault();
                         this.submit();
                     } }
                 >
-                    <KeyValue
-                        label="Tårtur-ID"
-                        value={ this.state.name }/>
                     <input className="input"
                         type="number"
                         placeholder="Antal andelar"
@@ -74,7 +74,7 @@ class Invest extends React.Component {
     submit() {
         account.invest(this.state.name, this.state.amount, allWentWell => {
             this.stateWith({
-                outcome: allWentWell
+                done: allWentWell
             });
         });
     }
