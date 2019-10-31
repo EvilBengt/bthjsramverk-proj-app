@@ -7,6 +7,7 @@ import FundDetails from "./pages/FundDetails";
 import Account from "./pages/Account";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Invest from "./pages/Invest";
 
 import auth from "./models/auth";
 
@@ -51,6 +52,7 @@ class App extends React.Component {
                 <Route path="/mina-sidor" component={ Account } />
                 <Route path="/logga-in" component={ Login } />
                 <Route path="/skapa-konto" component={ Register } />
+                <Route path="/investera/:name" component={ Invest } />
             </Router>
         );
     }

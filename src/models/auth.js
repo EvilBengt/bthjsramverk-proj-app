@@ -12,6 +12,8 @@ const auth = {
             });
             console.log(token);
         },
+        isSet: () => token ? true : false,
+        get: () => token,
         subscribe: f => {
             tokenSubscribers.push(f);
         }

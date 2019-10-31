@@ -6,6 +6,7 @@ import "../css/c3.css";
 
 import api from "../models/api";
 import KeyValue from "../components/KeyValue";
+import auth from "../models/auth";
 
 const devSocketUrl = "http://192.168.2.163:8400";
 const prodSocketUrl = "https://proj-socket.jsramverk.evilbengt.me";
@@ -23,7 +24,8 @@ class FundDetails extends React.Component {
         this.state = {
             name: "",
             long_name: "",
-            value: 0
+            value: 0,
+            loggedIn: auth.token.isSet()
         };
     }
 
@@ -67,14 +69,7 @@ class FundDetails extends React.Component {
         };
         const chart = {
             size: {
-                height: 250
-            }
-        };
-        const axis = {
-            y: {
-                tick: {
-                    format: roundToCents
-                }
+                height: 200
             }
         };
 
@@ -87,18 +82,22 @@ class FundDetails extends React.Component {
                 <KeyValue
                     label="Värde"
                     value={ this.state.value + " pengar/andel" }/>
-                <div className="tab-container">
-                    <Link className="button tab"
-                        to={ "/investera/" + this.state.name }>
-                            Investera
-                    </Link>
-                </div>
+                { this.state.loggedIn
+                    ?
+                    <div className="tab-container">
+                        <Link className="button tab"
+                            to={ "/investera/" + this.state.name }>
+                                Investera
+                        </Link>
+                    </div>
+                    :
+                    null
+                }
                 <div className="chart-container">
                 <RTChart
                     fields={ ["Pengar/andel"] }
                     data={ data }
-                    chart={ chart }
-                    axis={ axis }/>
+                    chart={ chart }/>
                 </div>
             </main>
         );
