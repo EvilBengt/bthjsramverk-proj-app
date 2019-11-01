@@ -1,5 +1,7 @@
 > Frontend för slutprojekt i kursen "JavaScript-baserade webbramverk" (jsramverk) på Blekinge Tekniska Högskola (BTH)
 
+> Anton Johnsson Håkansson, Webbprogrammering 120hp, 2019
+
 ---------------
 
 Krav 2: Frontend
