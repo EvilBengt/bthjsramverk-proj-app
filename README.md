@@ -1,68 +1,60 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> Frontend för slutprojekt i kursen "JavaScript-baserade webbramverk" (jsramverk) på Blekinge Tekniska Högskola (BTH)
 
-## Available Scripts
+---------------
 
-In the project directory, you can run:
+Krav 2: Frontend
+================
 
-### `npm start`
+Jag har genom kursen använt mig av ramverket React för frontend-utveckling
+och jag valde att fortsätta med det även i projektet. Jag tycker det har
+gått väldigt bra och jag börjar gilla Reacts idéer med immutable state och
+sådant. Det gör att det blir väldigt tydligt när sidan behöver och kommer
+uppdateras eller ej.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Jag har delat upp applikationen i tre huvuddelar; "Hem", "Fonder" och
+"Mina sidor". Hem-sidan är bara en enkel presentation. Fonder presenterar
+en enkel lista på alla fonder som finns i systemet där varje rubrik är en
+länk till en detalj-sida med realtids-data för just den fonden. Här använder
+jag "react-rt-chart" som är en wrapper för "c3.js" för att i realtid rita ut
+fondens kurs i ett diagram. Om man är inloggad finns här även en knapp för
+att investera i den valda fonden.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Mina sidor är kanske den mest omfattande sidan. Här presenteras nuvarande
+saldo och en lista på alla fonder man äger andelar i. För varje fond visas
+nuvarande värde, antalet ägda andelar samt det uträknade värdet av alla
+ägda andelar för den fonden. Allt på "mina sidor" som har med fonder att
+göra uppdateras i realtid med socket.io.
 
-### `npm test`
+Innan man är inloggad byts länken till "Mina sidor" ut till en länk till
+inloggningssidan. Där finns ett formulär för att logga in och även en
+länk till sidan för att skapa nytt konto.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+För att berörda delar av appen ska veta om användaren är inloggad eller ej,
+har jag byggt en enkel modell för inloggningsfunktionen. Där finns
+ett API för att prenumerera (typ events) och på så sätt "få reda på" om
+användaren är inloggad eller ej.
 
-### `npm run build`
+Vissa requests till servern är också utbrutna till egna moduler då de kanske
+används på flera ställen eller helt enkel är mer avancerade än vanliga
+"GET"-requests. Annars körs många requests i de komponenterna som
+använder datan.
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+För att underlätta responsiv styling och eventuellt snabba upp
+mobil-versionen något arbetade jag enligt mobile-first. Hela sidan är
+alltså gjord primärt som en mobilsida, men med media-queries för att
+flytta runt och bättre anpassa layouten för större skärmar.
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Krav 3: Realtid
+===============
 
-### `npm run eject`
+Även här har jag en modell för realtids-tjänsten för att kunna samla den
+datan centralt då flera sidor använder den. Även här finns möjlighet för
+sidor att prenumerera på ändringar i datan.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+De sidor som använder sig av realtids-datan är "Fonder" och "Mina sidor".
+Endast en av dessa sidor kommer såklart visas åt gången så för att
+underlätta mekanismen för att avsluta prenumerationer finns det endast
+plats för en prenumeration åt gången. Det räcker därför med att sidan
+kör `funds.unsubscribe()` för att tas bort så modellen inte försöker
+uppdatera sidans state när den inte visas.
